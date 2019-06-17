@@ -13,6 +13,7 @@ namespace clinica.Models
 
         public classErro()
         {
+            string a = "TESTE";
         }
     }
 }
