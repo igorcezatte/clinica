@@ -14,7 +14,7 @@ namespace clinica.Models
         public classErro()
         {
             string a = "TESTE";
-            teste;
+            teste; 1111
         }
     }
 }
