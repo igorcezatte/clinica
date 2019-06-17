@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace clinica.Models
 {
     public class classErro
@@ -14,7 +14,11 @@ namespace clinica.Models
         public classErro()
         {
             string a = "TESTE";
+
             teste; 1111
+
+            teste; ola
+
         }
     }
 }
