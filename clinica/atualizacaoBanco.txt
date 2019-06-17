@@ -1,0 +1,93 @@
+﻿-- -------------------------------------------- versao 1.00 ----------------------------------------------------
+CREATE TABLE dbo.tblPlanoSaude
+    (
+    codigo int NOT NULL,
+    utilizar bit not null,
+    descricao varchar(25) NOT NULL
+    )  ON [PRIMARY]
+GO
+ALTER TABLE dbo.tblPlanoSaude ADD CONSTRAINT
+    PK_tblPlanoSaude PRIMARY KEY CLUSTERED 
+    (
+    codigo
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.tblPlanoSaude SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+insert into tblplanosaude(codigo, utilizar ,descricao) values (1,1,'Unimed')
+
+insert into tblplanosaude(codigo, utilizar,descricao) values (2,1,'Sao Bernardo')
+
+insert into tblplanosaude(codigo, utilizar ,descricao) values (3,1,'SAMP')
+
+
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.tblClientes
+    (
+    id int NOT NULL IDENTITY (1, 1),
+    nome varchar(40) NOT NULL,
+    cd_planoSaude int NOT NULL,
+    dataNascimento datetime NOT NULL,
+    cpf varchar(11) NOT NULL,
+    telefone varchar(20) NOT NULL
+    )  ON [PRIMARY]
+GO
+ALTER TABLE dbo.tblClientes ADD CONSTRAINT
+    PK_tblClientes PRIMARY KEY CLUSTERED 
+    (
+    id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.tblClientes SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.tblUsuarios
+    (
+    id int NOT NULL IDENTITY (1, 1),
+    usuario varchar(30) NOT NULL,
+    senha varchar(30) NOT NULL,
+    adm bit NOT NULL
+    )  ON [PRIMARY]
+GO
+ALTER TABLE dbo.tblUsuarios ADD CONSTRAINT
+    PK_tblUsuarios PRIMARY KEY CLUSTERED 
+    (
+    id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.tblUsuarios SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.tblPlanoSaude SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.tblClientes ADD CONSTRAINT
+    FK_tblClientes_tblPlanoSaude FOREIGN KEY
+    (
+    cd_planoSaude
+    ) REFERENCES dbo.tblPlanoSaude
+    (
+    codigo
+    ) ON UPDATE  NO ACTION 
+     ON DELETE  NO ACTION 
+    
+GO
+ALTER TABLE dbo.tblClientes SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+

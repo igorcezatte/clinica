@@ -1,0 +1,133 @@
+﻿@page
+@model customerPageModel
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+@Html.AntiForgeryToken()
+
+<div class="body">
+
+    <div class="row" style="vertical-align:bottom">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5 text-left">
+            <h3>Clientes</h3>
+        </div>
+        <div class="col-lg-1 col-lg-offset-9 col-md-2 col-md-offset-8 col-sm-2 col-sm-offset-7 col-xs-4 col-xs-offset-3">
+            <a asp-page="redirectPage" asp-route-id="2" class="btn btn-default-1 btn-block">Novo</a>
+        </div>
+    </div>
+
+    <hr style="margin-top: 3px" />
+
+    <form method="post">
+        <div class="row">
+            <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <input autocomplete="off" type="text" asp-for="inpSearch" class="form-control" placeholder="Nome / CPF" />
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+                <div class="row">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-10">
+                        <button class="btn btn-default-1 btn-block">Procurar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <br />
+    @{
+        if (Model.objErro != null && Model.objErro.erro && string.IsNullOrEmpty(Model.objErro.strErroAmigavel))
+        {
+            <div class="row">
+                <div>
+                    <div class="alert alert-danger alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Atencao!</strong> @Model.objErro.strErro
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (TempData["alterSaveCustomerOK"] != null)
+        {
+            <div class="row">
+                <div>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>OK!</strong> @TempData["alterSaveCustomerOK"].ToString()
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (Model.objErro != null && Model.objErro.erro && !string.IsNullOrEmpty(Model.objErro.strErroAmigavel))
+        {
+
+            <div class="row">
+                <div>
+                    <div class="alert alert-warning alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Atencao!</strong> @Model.objErro.strErroAmigavel
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+    <br />
+    <form method="post">
+        @{
+            if (Model.lstClientes != null && Model.lstClientes.Count > 0)
+            {
+                <input style="display:none" asp-for="inpSearch" />
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Nome</th>
+                                <th class="text-center">Plano Saude</th>
+                                <th class="text-center">Telefone</th>
+                                <th class="text-center">CPF</th>
+                                <th class="text-center">Data nascimento</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @{
+                                if (Model.lstClientes != null)
+                                {
+                                    foreach (var obj in Model.lstClientes)
+                                    {
+                                        <tr>
+                                            <td class="text-center " style="vertical-align:middle">@obj.id</td>
+                                            <td class="text-center " style="vertical-align:middle">@obj.nome</td>
+                                            <td class="text-center " style="vertical-align:middle">@obj.planoSaude</td>
+                                            <td class="text-center " style="vertical-align:middle">@obj.telefone</td>
+                                            <td class="text-center " style="vertical-align:middle">@obj.cpf</td>
+                                            <td class="text-center " style="vertical-align:middle">@obj.dataNascimento.ToString("dd/MM/yyyy")</td>
+                                            <td class="text-center">
+                                                <button asp-page-handler="Edit" asp-route-id="@obj.id" class="btn btn-edit btn-sm">Editar</button>
+                                            </td>
+                                            <td class="text-center">
+                                                <button asp-page-handler="Delete" asp-route-id="@obj.id" class="btn btn-delete btn-sm">Deletar</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+        }
+
+    </form>
+
+</div>

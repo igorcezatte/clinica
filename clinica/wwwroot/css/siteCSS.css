@@ -1,0 +1,178 @@
+﻿
+/* -------------------------------- variaveis globais -------------------------------------*/
+body {
+    height: 100%;
+    position: relative;
+    padding: 0px
+}
+
+:root {
+    /* ---  colors ---- */
+    --gray-1: #FAFBFB;
+    --gray-2: #DBDBDB;
+    --gray-3: #9C9C9C;
+    --gray-4: #535252;
+    --accent-2: #77B8F9;
+    --accent-3: #99CCff;
+    --accent-4: #F9A8A2;
+    --accent-5: #E67A6A;
+    --accent-6: #FFE47E;
+    --accent-7: #FDDD65;
+    /* ---  font size ---- */
+    --text-size-micro: 12px;
+    --text-size-small: 16px;
+    /* --- shadow ---- */
+    --shadow-1: 4px 4px 10px -1px rgba(0,0,0,0.13);
+}
+
+
+/* colunas com mesmas alturas */
+.is-table-row {
+    display: table;
+    width: 100%;
+    margin: 0px;
+}
+
+.is-table-row [class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
+
+
+/* ----------------------------------------------------------------------------------------*/
+
+
+
+/* -------------------------------- Componentes globais -------------------------------------*/
+
+.body{
+    margin-top: 100px;
+}
+
+.btn-default-1 {
+    color: white;
+    background-color: var(--accent-3);
+    border-color: var(--accent-3);
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: var(--shadow-1);
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+    .btn-default-1:hover,
+    .btn-default-1:active,
+    .btn-default-1:focus,
+    .btn-default-1.active {
+        /* let's darken #004E64 a bit for hover effect */
+        color: white;
+        background-color: var(--accent-2);
+        border-color: var(--accent-2);
+    }
+
+
+.btn-edit {
+    color: white;
+    background-color: var(--accent-6);
+    border-color: var(--accent-6);
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: var(--shadow-1);
+}
+
+    .btn-edit:hover,
+    .btn-edit:active,
+    .btn-edit:focus,
+    .btn-edit.active {
+        /* let's darken #004E64 a bit for hover effect */
+        color: white;
+        background-color: var(--accent-7);
+        border-color: var(--accent-7);
+    }
+
+.btn-delete {
+    color: white;
+    background-color: var(--accent-4);
+    border-color: var(--accent-4);
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: var(--shadow-1);
+}
+
+    .btn-delete:hover,
+    .btn-delete:active,
+    .btn-delete:focus,
+    .btn-delete.active {
+        /* let's darken #004E64 a bit for hover effect */
+        color: white;
+        background-color: var(--accent-5);
+        border-color: var(--accent-5);
+    }
+
+.separator-default {
+    color: var(--gray-2);
+    height: 2px;
+    width: 100%;
+    background-color: var(--gray-2);
+}
+
+.lbl-gray4-small {
+    color: var(--gray-3);
+    font-size: var(--text-size-small);
+    text-align: left;
+    font-weight: normal;
+    width: 100%;
+}
+
+
+
+/* ----------------------------------------------------------------------------------------*/
+
+
+
+
+/* -------------------------------- Login page --------------------------------------------*/
+
+.loginPage-frame-login {
+    margin-top: 30px;
+    background-color: var(--gray-1);
+    border-radius: 0px;
+    padding: 30px 50px;
+    box-shadow: var(--shadow-1);
+}
+
+.label-recovery {
+    color: var(--gray-3);
+    font-size: var(--text-size-micro);
+    text-align: center;
+    font-weight: normal;
+    width: 100%;
+}
+
+    .label-recovery:hover,
+    .label-recovery:active,
+    .label-recovery:focus,
+    .label-recovery.active {
+        /* let's darken #004E64 a bit for hover effect */
+        color: var(--gray-4);
+    }
+
+
+
+/* -------------------------------- new customer page --------------------------------------------*/
+
+.label-back {
+    color: var(--gray-3);
+    font-size: var(--text-size-small);
+    font-weight: normal;
+    cursor:pointer;
+}
+
+    .label-back:hover,
+    .label-back:active,
+    .label-back:focus,
+    .label-back.active {
+        /* let's darken #004E64 a bit for hover effect */
+        color: var(--gray-4);
+    }

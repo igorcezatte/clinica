@@ -1,0 +1,153 @@
+﻿@page
+@model newCustomerPageModel
+@{
+}
+
+
+@Html.AntiForgeryToken()
+
+<div class="body">
+
+    <div class="row" style="vertical-align:bottom">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 text-left">
+            <h3>@Model.strTitulo</h3>
+        </div>
+        @*<div class="col-lg-1 col-lg-offset-9 col-md-2 col-md-offset-8 col-sm-2 col-sm-offset-7 col-xs-4 col-xs-offset-3">
+                <button class="btn btn-default-1 btn-block">Novo</button>
+            </div>*@
+    </div>
+
+    <hr style="margin-top: 3px" />
+
+    @{
+        if (Model.objErro != null && Model.objErro.erro)
+        {
+            if (!string.IsNullOrEmpty(Model.objErro.strErroAmigavel))
+            {
+
+                <div class="row">
+                    <div>
+                        <div class="alert alert-warning alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Atencao!</strong> @Model.objErro.strErroAmigavel
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+
+                <div class="row">
+                    <div>
+                        <div class="alert alert-danger alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Erro!</strong> @Model.objErro.strErro
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        }
+        else if (!string.IsNullOrEmpty(Model.strMsgOK))
+        {
+            <div class="row">
+                <div>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>OK!</strong> @Model.strMsgOK
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+    <form method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="text" asp-for="inpID" style="display:none">
+
+        <div class="row">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label for="inpName" class="lbl-gray4-small">Nome</label>
+                <input type="text" asp-for="inpName" class="form-control" autocomplete="off" placeholder="Nome completo">
+                <span asp-validation-for="inpName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label for="inpTelephone" class="lbl-gray4-small">Telefone</label>
+                <input type="text" asp-for="inpTelephone" class="form-control phone" autocomplete="off" placeholder="(99) 99999-9999">
+                <span asp-validation-for="inpTelephone" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label for="inpDate" class="lbl-gray4-small">Data de nascimento</label>
+                <input type="text" asp-for="inpDate" class="form-control mixed" autocomplete="off" placeholder="99/99/9999">
+                <span asp-validation-for="inpDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label for="inpCPF" class="lbl-gray4-small">CPF</label>
+                <input type="text" asp-for="inpCPF" class="form-control cpf" autocomplete="off" placeholder="999.999.999-99">
+                <span asp-validation-for="inpCPF" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label class="lbl-gray4-small">Plano de saude</label>
+                <select class="form-control" asp-for="selectedPlanoSaude" asp-items="Model.lstPlanoSaude">
+                    <option value="" selected disabled>Selecione um plano de saude</option>
+                    @*<option>Sem plano de saude</option>
+                    <option>Unimed</option>
+                    <option>Sao bernardo</option>*@
+
+                </select>
+                <span asp-validation-for="selectedPlanoSaude" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px;">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="row is-table-row">
+                    <div class="col-xs-6 text-center" style="vertical-align:middle">
+                        @*<button asp-page-handler="BackPage" class="label-back">Voltar</button>*@
+                    </div>
+                    <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
+                        <button class="btn btn-default-1 btn-block">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+<script type="text/javascript">$(document).ready(function () {
+
+
+        $('.mixed').mask('00/00/0000');
+        $('.cpf').mask('000.000.000-00', { reverse: true });
+
+        $('.phone').mask('(AA) AAAAAAAAAAAAAAA', {
+            'translation': {
+                A: { pattern: /[0-9]/ }
+            }
+        });
+
+    });</script>
+}
+
+
