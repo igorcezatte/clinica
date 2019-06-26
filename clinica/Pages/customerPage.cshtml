@@ -86,12 +86,17 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="text-center">ID</th>
-                                <th class="text-center">Nome</th>
-                                <th class="text-center">Plano Saude</th>
-                                <th class="text-center">Telefone</th>
-                                <th class="text-center">CPF</th>
-                                <th class="text-center">Data nascimento</th>
+                                <th class="text-center" style="white-space:nowrap;">ID</th>
+                                <th class="text-center" style="white-space:nowrap;">Nome</th>
+                                <th class="text-center" style="white-space:nowrap;">Telefone</th>
+                                <th class="text-center" style="white-space:nowrap;">CPF</th>
+                                <th class="text-center" style="white-space:nowrap;">Data nascimento</th>
+                                <th class="text-center" style="white-space:nowrap;">Plano Saude</th>
+                                <th class="text-center" style="white-space:nowrap;">Numero da carteirinha</th>
+                                <th class="text-center" style="white-space:nowrap;">Profissao</th>
+                                <th class="text-center" style="white-space:nowrap;">Endereco</th>
+                                <th class="text-center" style="white-space:nowrap;">Midias Sociais</th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -104,14 +109,21 @@
                                     foreach (var obj in Model.lstClientes)
                                     {
                                         <tr>
-                                            <td class="text-center " style="vertical-align:middle">@obj.id</td>
-                                            <td class="text-center " style="vertical-align:middle">@obj.nome</td>
-                                            <td class="text-center " style="vertical-align:middle">@obj.planoSaude</td>
-                                            <td class="text-center " style="vertical-align:middle">@obj.telefone</td>
-                                            <td class="text-center " style="vertical-align:middle">@obj.cpf</td>
-                                            <td class="text-center " style="vertical-align:middle">@obj.dataNascimento.ToString("dd/MM/yyyy")</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.id</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.nome</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.telefone</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.cpf</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.dataNascimento.ToString("dd/MM/yyyy")</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.planoSaude</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.numeroCarteirinha</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.profissao</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.endereco</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.midias</td>
                                             <td class="text-center">
                                                 <button asp-page-handler="Edit" asp-route-id="@obj.id" class="btn btn-edit btn-sm">Editar</button>
+                                            </td>
+                                            <td class="text-center">
+                                                <button asp-page-handler="Evaluation" asp-route-id="@obj.id" class="btn btn-default-2 btn-sm">Avaliacoes</button>
                                             </td>
                                             <td class="text-center">
                                                 <button asp-page-handler="Delete" asp-route-id="@obj.id" class="btn btn-delete btn-sm">Deletar</button>
@@ -131,3 +143,6 @@
     </form>
 
 </div>
+
+
+

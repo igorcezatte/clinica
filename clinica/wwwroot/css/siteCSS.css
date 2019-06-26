@@ -18,6 +18,8 @@ body {
     --accent-5: #E67A6A;
     --accent-6: #FFE47E;
     --accent-7: #FDDD65;
+    --accent-8: #EC97E5;
+    --accent-9: #EC75E3;
     /* ---  font size ---- */
     --text-size-micro: 12px;
     --text-size-small: 16px;
@@ -70,6 +72,29 @@ body {
         background-color: var(--accent-2);
         border-color: var(--accent-2);
     }
+
+
+
+.btn-default-2 {
+    color: white;
+    background-color: var(--accent-8);
+    border-color: var(--accent-8);
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: var(--shadow-1);
+}
+
+    .btn-default-2:hover,
+    .btn-default-2:active,
+    .btn-default-2:focus,
+    .btn-default-2.active {
+        /* let's darken #004E64 a bit for hover effect */
+        color: white;
+        background-color: var(--accent-9);
+        border-color: var(--accent-9);
+    }
+
+
 
 
 .btn-edit {

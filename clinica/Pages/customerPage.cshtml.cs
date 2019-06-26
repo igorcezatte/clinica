@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using clinica.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace clinica.Pages
 {
+
     public class customerPageModel : PageModel
     {
         #region properties
@@ -21,6 +23,7 @@ namespace clinica.Pages
 
         public IActionResult OnGet(string strParams)
         {
+
             var strErrorAuth = classModulo.strErrorAuth;
           
             try
@@ -195,6 +198,23 @@ namespace clinica.Pages
             });
         }
 
+        public IActionResult OnPostEvaluation(int id)
+        {
+            classValidationQueryString objValidation = new classValidationQueryString();
+
+            objValidation.objUsuario = HttpContext.Session.GetObjectFromJson<classUsuario>("user");
+
+            objValidation.insertQueryParam("customerID", id.ToString());
+
+            var strObjValidation = JsonConvert.SerializeObject(objValidation);
+
+            var strObjValidationEncrypt = classModulo.Encrypt(strObjValidation);
+
+            return RedirectToPage("customerEvaluationPage", new
+            {
+                strParams = strObjValidationEncrypt
+            });
+        }
         public IActionResult OnPostDelete(int id)
         {
             classValidationQueryString objValidation = new classValidationQueryString();

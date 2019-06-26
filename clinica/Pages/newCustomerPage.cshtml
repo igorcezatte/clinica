@@ -63,71 +63,105 @@
 
     }
 
-    <form method="post">
+            <form method="post">
 
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <input type="text" asp-for="inpID" style="display:none">
+                <input type="text" asp-for="inpID" style="display:none">
 
-        <div class="row">
-            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <label for="inpName" class="lbl-gray4-small">Nome</label>
-                <input type="text" asp-for="inpName" class="form-control" autocomplete="off" placeholder="Nome completo">
-                <span asp-validation-for="inpName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <label for="inpTelephone" class="lbl-gray4-small">Telefone</label>
-                <input type="text" asp-for="inpTelephone" class="form-control phone" autocomplete="off" placeholder="(99) 99999-9999">
-                <span asp-validation-for="inpTelephone" class="text-danger"></span>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpName" class="lbl-gray4-small">Nome</label>
+                        <input type="text" asp-for="inpName" class="form-control" autocomplete="off" placeholder="Nome completo">
+                        <span asp-validation-for="inpName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpTelephone" class="lbl-gray4-small">Telefone</label>
+                        <input type="text" asp-for="inpTelephone" class="form-control phone" autocomplete="off" placeholder="(99) 99999-9999">
+                        <span asp-validation-for="inpTelephone" class="text-danger"></span>
+                    </div>
+                </div>
 
 
-        <div class="row">
-            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <label for="inpDate" class="lbl-gray4-small">Data de nascimento</label>
-                <input type="text" asp-for="inpDate" class="form-control mixed" autocomplete="off" placeholder="99/99/9999">
-                <span asp-validation-for="inpDate" class="text-danger"></span>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpDate" class="lbl-gray4-small">Data de nascimento</label>
+                        <input type="text" asp-for="inpDate" class="form-control mixed" autocomplete="off" placeholder="99/99/9999">
+                        <span asp-validation-for="inpDate" class="text-danger"></span>
+                    </div>
+                </div>
 
-        <div class="row">
-            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <label for="inpCPF" class="lbl-gray4-small">CPF</label>
-                <input type="text" asp-for="inpCPF" class="form-control cpf" autocomplete="off" placeholder="999.999.999-99">
-                <span asp-validation-for="inpCPF" class="text-danger"></span>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpCPF" class="lbl-gray4-small">CPF</label>
+                        <input type="text" asp-for="inpCPF" class="form-control cpf" autocomplete="off" placeholder="999.999.999-99">
+                        <span asp-validation-for="inpCPF" class="text-danger"></span>
+                    </div>
+                </div>
 
-        <div class="row">
-            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <label class="lbl-gray4-small">Plano de saude</label>
-                <select class="form-control" asp-for="selectedPlanoSaude" asp-items="Model.lstPlanoSaude">
-                    <option value="" selected disabled>Selecione um plano de saude</option>
-                    @*<option>Sem plano de saude</option>
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpCPF" class="lbl-gray4-small">Endereco</label>
+                        <input type="text" asp-for="inpAdress" class="form-control" autocomplete="off" placeholder="Endereco completo">
+                        <span asp-validation-for="inpAdress" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpCPF" class="lbl-gray4-small">Numero da carteirinha</label>
+                        <input type="text" asp-for="inpCarteirinhaNumber" class="form-control carteirinhaNumber" autocomplete="off" placeholder="999999999999">
+                        <span asp-validation-for="inpCarteirinhaNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpCPF" class="lbl-gray4-small">Profissao</label>
+                        <input type="text" asp-for="inpJob" class="form-control" autocomplete="off" placeholder="Profissao">
+                        <span asp-validation-for="inpJob" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label for="inpCPF" class="lbl-gray4-small">Midias sociais</label>
+                        <input type="text" asp-for="inpMidias" class="form-control" autocomplete="off" placeholder="Midias sociais">
+                        <span asp-validation-for="inpMidias" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label class="lbl-gray4-small">Plano de saude</label>
+                        <select class="form-control" asp-for="slcPlanoSaude" asp-items="Model.lstPlanoSaude">
+                            <option value="" selected disabled>Selecione um plano de saude</option>
+                            @*<option>Sem plano de saude</option>
                     <option>Unimed</option>
                     <option>Sao bernardo</option>*@
 
-                </select>
-                <span asp-validation-for="selectedPlanoSaude" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row" style="margin-top:20px;">
-            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="row is-table-row">
-                    <div class="col-xs-6 text-center" style="vertical-align:middle">
-                        @*<button asp-page-handler="BackPage" class="label-back">Voltar</button>*@
-                    </div>
-                    <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
-                        <button class="btn btn-default-1 btn-block">Salvar</button>
+                        </select>
+                        <span asp-validation-for="slcPlanoSaude" class="text-danger"></span>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="row" style="margin-top:20px;">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="row is-table-row">
+                            <div class="col-xs-6 text-center" style="vertical-align:middle">
+                                @*<button asp-page-handler="BackPage" class="label-back">Voltar</button>*@
+                            </div>
+                            <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
+                                <button class="btn btn-default-1 btn-block">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    </form>
+            </form>
 </div>
 
 @section scripts {
@@ -142,6 +176,12 @@
         $('.cpf').mask('000.000.000-00', { reverse: true });
 
         $('.phone').mask('(AA) AAAAAAAAAAAAAAA', {
+            'translation': {
+                A: { pattern: /[0-9]/ }
+            }
+        });
+
+        $('.carteirinhaNumber').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {
             'translation': {
                 A: { pattern: /[0-9]/ }
             }

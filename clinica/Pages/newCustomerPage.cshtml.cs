@@ -32,7 +32,23 @@ namespace clinica.Pages
         public string inpDate { get; set; }
 
         [BindProperty, Required(ErrorMessage ="Selecione um plano de saude"), Display(Name = "Plano")]
-        public int selectedPlanoSaude { get; set; }
+        public int slcPlanoSaude { get; set; }
+
+        [BindProperty, Required(ErrorMessage = "Digite um endereco"), Display(Name = "Endereco")]
+        [MaxLength(70, ErrorMessage = "O endereco deve ter no maximo 70 letras")]
+        public string inpAdress { get; set; }
+
+        [BindProperty, Required(ErrorMessage = "Digite o numero da carteirinha"), Display(Name = "Numero da carteirnha")]
+        [MaxLength(30, ErrorMessage = "Midias deve ter no maximo 30 digitos")]
+        public string inpCarteirinhaNumber { get; set; }
+
+        [BindProperty, Required(ErrorMessage = "Digite uma profissao"), Display(Name = "Profissao")]
+        [MaxLength(50, ErrorMessage = "A profissao deve ter no maximo 50 letras")]
+        public string inpJob { get; set; }
+
+        [BindProperty]
+        [MaxLength(100, ErrorMessage = "Midias deve ter no maximo 100 letras")]
+        public string inpMidias { get; set; }
 
         public List<SelectListItem> lstPlanoSaude  { get; set; }
         public classErro objErro { get; set; }
@@ -176,6 +192,11 @@ namespace clinica.Pages
             selectedPlanoSaude = objCliente.cd_planoSaude;
             inpID = objCliente.id.ToString();
             inpName = objCliente.nome;
+            inpName = objCliente.nome;
+            inpAdress = objCliente.endereco;
+            inpCarteirinhaNumber = objCliente.numeroCarteirinha.ToString();
+            inpJob = objCliente.profissao;
+            inpMidias = objCliente.midias;
             inpCPF = string.IsNullOrEmpty(objCliente.cpf) ? string.Empty : objCliente.cpf;
             inpTelephone = string.IsNullOrEmpty(objCliente.telefone) ? string.Empty : objCliente.telefone;
             inpDate = objCliente.dataNascimento == DateTime.MinValue ? string.Empty : objCliente.dataNascimento.ToString("dd/MM/yyyy");
@@ -192,9 +213,13 @@ namespace clinica.Pages
             //fazer isso
             objCliente.cd_planoSaude = selectedPlanoSaude;
             objCliente.telefone = inpTelephone;
+            objCliente.endereco = inpAdress;
+            objCliente.midias = inpMidias;
+            objCliente.profissao = inpJob;
+            objCliente.numeroCarteirinha = (inpCarteirinhaNumber);
 
             // --------   validar data --------------
-           
+
             if (classModulo.dateValidation(inpDate))
             {
                 objCliente.dataNascimento = Convert.ToDateTime(inpDate, new CultureInfo("pt-BR").DateTimeFormat);

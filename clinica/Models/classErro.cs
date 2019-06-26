@@ -13,11 +13,7 @@ namespace clinica.Models
 
         public classErro()
         {
-            string a = "TESTE";
-
-            teste; 1111
-
-            teste; ola
+          
 
         }
     }

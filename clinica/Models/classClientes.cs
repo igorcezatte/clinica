@@ -15,6 +15,10 @@ namespace clinica.Models
         public string telefone { get; set; }
         public string cpf { get; set; }
         public string planoSaude { get; set; }
+        public string numeroCarteirinha { get; set; }
+        public string profissao { get; set; }
+        public string midias { get; set; }
+        public string endereco { get; set; }
         public classErro objErro { get; set; }
         #endregion
 
@@ -38,6 +42,10 @@ namespace clinica.Models
             cmd.Parameters.AddWithValue("@telefone", telefone);
             cmd.Parameters.AddWithValue("@cpf", cpf.Replace("-",string.Empty).Replace(".", string.Empty));
             cmd.Parameters.AddWithValue("@dataNascimento", dataNascimento);
+            cmd.Parameters.AddWithValue("@numeroCarteirinha", numeroCarteirinha);
+            cmd.Parameters.AddWithValue("@profissao", profissao);
+            cmd.Parameters.AddWithValue("@midias", midias);
+            cmd.Parameters.AddWithValue("@endereco", endereco);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try
@@ -144,7 +152,11 @@ namespace clinica.Models
             objCliente.dataNascimento = Convert.ToDateTime(((DataRow)obj).ItemArray.GetValue(3).ToString());
             objCliente.cpf = ((DataRow)obj).ItemArray.GetValue(4).ToString();
             objCliente.telefone = ((DataRow)obj).ItemArray.GetValue(5).ToString();
-            objCliente.planoSaude = ((DataRow)obj).ItemArray.GetValue(6).ToString();
+            objCliente.midias = ((DataRow)obj).ItemArray.GetValue(6).ToString();
+            objCliente.endereco = ((DataRow)obj).ItemArray.GetValue(7).ToString();
+            objCliente.profissao = ((DataRow)obj).ItemArray.GetValue(8).ToString();
+            objCliente.numeroCarteirinha = ((DataRow)obj).ItemArray.GetValue(9).ToString();
+            objCliente.planoSaude = ((DataRow)obj).ItemArray.GetValue(10).ToString();
 
             return objCliente;
         }

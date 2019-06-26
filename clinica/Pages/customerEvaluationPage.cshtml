@@ -1,0 +1,150 @@
+﻿@page
+@model customerEvaluationPageModel
+@{
+}
+
+<div class="body">
+
+    <div class="row" style="vertical-align:bottom">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 text-left">
+            @{
+                if (Model.objCustomer == null)
+                {<h3>Cliente</h3> }
+                else
+                {<h3>@Model.truncateCustomerName()</h3>}
+            }
+
+        </div>
+        <div class="col-lg-2 col-lg-offset-7 col-md-3 col-md-offset-7 col-sm-2 col-sm-offset-6 col-xs-4 col-xs-offset-2">
+            <a asp-page="redirectPage" asp-route-id="2" class="btn btn-default-1 btn-block">Nova avaliacao</a>
+        </div>
+    </div>
+
+    <hr style="margin-top: 3px" />
+
+    @*<form method="post">
+            <div class="row">
+                <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                    <input autocomplete="off" type="text" asp-for="inpSearch" class="form-control" placeholder="Nome / CPF" />
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+                    <div class="row">
+                        <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-10">
+                            <button class="btn btn-default-1 btn-block">Procurar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>*@
+
+    <br />
+    @{
+        if (Model.objErro != null && Model.objErro.erro && string.IsNullOrEmpty(Model.objErro.strErroAmigavel))
+        {
+            <div class="row">
+                <div>
+                    <div class="alert alert-danger alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Atencao!</strong> @Model.objErro.strErro
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (TempData["alterSaveCustomerOK"] != null)
+        {
+            <div class="row">
+                <div>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>OK!</strong> @TempData["alterSaveCustomerOK"].ToString()
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (Model.objErro != null && Model.objErro.erro && !string.IsNullOrEmpty(Model.objErro.strErroAmigavel))
+        {
+
+            <div class="row">
+                <div>
+                    <div class="alert alert-warning alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Atencao!</strong> @Model.objErro.strErroAmigavel
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+    <br />
+    <form method="post">
+        @{
+            if (Model.lstEvaluation != null && Model.lstEvaluation.Count > 0)
+            {
+                @*<input style="display:none" asp-for="inpSearch" />*@
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="white-space:nowrap;">ID</th>
+                                <th class="text-center" style="white-space:nowrap;">Data Inicio</th>
+                                <th class="text-center" style="white-space:nowrap;">Diagnostico</th>
+                                @*<th class="text-center" style="white-space:nowrap;">CPF</th>
+                                    <th class="text-center" style="white-space:nowrap;">Data nascimento</th>
+                                    <th class="text-center" style="white-space:nowrap;">Plano Saude</th>
+                                    <th class="text-center" style="white-space:nowrap;">Numero da carteirinha</th>
+                                    <th class="text-center" style="white-space:nowrap;">Profissao</th>
+                                    <th class="text-center" style="white-space:nowrap;">Endereco</th>
+                                    <th class="text-center" style="white-space:nowrap;">Midias Sociais</th>*@
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @{
+                                if (Model.lstEvaluation != null)
+                                {
+                                    foreach (var obj in Model.lstEvaluation)
+                                    {
+                                        <tr>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.id</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.dataInicio.ToString("dd/MM/yyyy")</td>
+                                            <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.diagnosticoMedico</td>
+                                            @*<td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.cpf</td>
+                                                <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.dataNascimento.ToString("dd/MM/yyyy")</td>
+                                                <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.planoSaude</td>
+                                                <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.numeroCarteirinha</td>
+                                                <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.profissao</td>
+                                                <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.endereco</td>
+                                                <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.midias</td>*@
+                                            <td class="text-center">
+                                                <button asp-page-handler="Edit" asp-route-id="@obj.id" class="btn btn-edit btn-sm">Editar</button>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-default-2 btn-sm">Avaliacoes</button>
+                                            </td>
+                                            <td class="text-center">
+                                                <button asp-page-handler="Delete" asp-route-id="@obj.id" class="btn btn-delete btn-sm">Deletar</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+        }
+
+    </form>
+
+</div>
+
+
