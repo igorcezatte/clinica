@@ -133,11 +133,11 @@ namespace clinica.Models
             objEvaluation.tabagista = Convert.ToBoolean(((DataRow)obj).ItemArray.GetValue(10).ToString());
             objEvaluation.hobbies = ((DataRow)obj).ItemArray.GetValue(11).ToString();
             objEvaluation.planoTratamento = (((DataRow)obj).ItemArray.GetValue(12).ToString());
-            objEvaluation.cd_tipoTratamento = Convert.ToInt32(((DataRow)obj).ItemArray.GetValue(13).ToString());
+            objEvaluation.cd_tipoTratamento =  Convert.ToInt32(((DataRow)obj).ItemArray.GetValue(13).ToString());
             objEvaluation.planoTratamento = (((DataRow)obj).ItemArray.GetValue(14).ToString());
-            objEvaluation.examesComplementares = (((DataRow)obj).ItemArray.GetValue(14).ToString());
-            objEvaluation.QueixaPrincipal = (((DataRow)obj).ItemArray.GetValue(15).ToString());
-            objEvaluation.fechada = Convert.ToBoolean(((DataRow)obj).ItemArray.GetValue(14).ToString());
+            objEvaluation.examesComplementares = (((DataRow)obj).ItemArray.GetValue(15).ToString());
+            objEvaluation.QueixaPrincipal = (((DataRow)obj).ItemArray.GetValue(16).ToString());
+            objEvaluation.fechada = Convert.ToBoolean(((DataRow)obj).ItemArray.GetValue(17).ToString());
 
             return objEvaluation;
         }

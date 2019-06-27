@@ -2,3 +2,266 @@
 @model newCustomerEvaluationPageModel
 @{
 }
+
+
+
+@Html.AntiForgeryToken()
+
+<div class="body">
+
+    <div class="row" style="vertical-align:bottom">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 text-left">
+            <h3>Nova avaliacao</h3>
+        </div>
+        @*<div class="col-lg-1 col-lg-offset-9 col-md-2 col-md-offset-8 col-sm-2 col-sm-offset-7 col-xs-4 col-xs-offset-3">
+                <button class="btn btn-default-1 btn-block">Novo</button>
+            </div>*@
+    </div>
+
+    <hr style="margin-top: 3px;margin-bottom: 0px" />
+
+    @{
+        if (Model.objErro != null && Model.objErro.erro)
+        {
+            if (!string.IsNullOrEmpty(Model.objErro.strErroAmigavel))
+            {
+
+                <div class="row">
+                    <div>
+                        <div class="alert alert-warning alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Atencao!</strong> @Model.objErro.strErroAmigavel
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+
+                <div class="row">
+                    <div>
+                        <div class="alert alert-danger alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Erro!</strong> @Model.objErro.strErro
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        }
+        else if (!string.IsNullOrEmpty(Model.strMsgOK))
+        {
+            <div class="row">
+                <div>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>OK!</strong> @Model.strMsgOK
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+    @{
+        if (Model.objCustomer != null && Model.objCustomer.id != 0)
+        {
+            <div style="padding: 20px 0;">
+                <div>
+                    Cliente: @Model.objCustomer.nome
+                </div>
+                <div style="padding: 10px 0;">
+                   Plano de saude: @Model.objCustomer.planoSaude
+                </div>
+                <div>
+                   CPF: @Model.objCustomer.cpf
+                </div>
+            </div>
+        }
+
+    }
+    <form method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="text" asp-for="inpID" style="display:none">
+        <input type="text" asp-for="inpCdCliente" style="display:none">
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpMedicDiagnosis" class="lbl-gray4-small">Diagnostico medico</label>
+                <textarea rows="4" type="text" asp-for="inpMedicDiagnosis" class="form-control" autocomplete="off" placeholder="Diagnostico Medico"></textarea>
+                @*<span asp-validation-for="inpName" class="text-danger"></span>*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpMedicName" class="lbl-gray4-small">Nome do medico</label>
+                <input type="text" asp-for="inpMedicName" class="form-control" autocomplete="off" placeholder="Nome do medico">
+                <span asp-validation-for="inpMedicName" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpMedicCRM" class="lbl-gray4-small">CRM</label>
+                <input type="text" asp-for="inpMedicCRM" class="form-control onlyNumbers" autocomplete="off" placeholder="CRM">
+                <span asp-validation-for="inpMedicCRM" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpAnamnesis" class="lbl-gray4-small">Anamnese</label>
+                <textarea rows="4" type="text" asp-for="inpAnamnesis" class="form-control" autocomplete="off" placeholder="Anamnese"></textarea>
+                @*<span asp-validation-for="inpCPF" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpMedicines" class="lbl-gray4-small">Medicamentos</label>
+                <textarea rows="4" type="text" asp-for="inpMedicines" class="form-control" autocomplete="off" placeholder="Medicamentos"></textarea>
+                @*<span asp-validation-for="inpAdress" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpAssociatedDiseases" class="lbl-gray4-small">Doencas associadas</label>
+                <textarea rows="4" type="text" asp-for="inpAssociatedDiseases" class="form-control" autocomplete="off" placeholder="Doencas associadas"></textarea>
+                @*<span asp-validation-for="inpCarteirinhaNumber" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="row is-table-row">
+                    <div class="col-xs-6 text-center" style="vertical-align:middle;padding:0">
+                        <label for="inpAlcoholis" style="margin:0" class="lbl-gray4-small">Etilista</label>
+                    </div>
+                    <div class="col-xs-3 text-center" style="vertical-align:middle">
+                        <input type="checkbox" asp-for="inpAlcoholist" class="form-control" style="margin:0" autocomplete="off" placeholder="Etilista">
+                    </div>
+                    <div class="col-xs-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="row is-table-row">
+                    <div class="col-xs-6 text-center" style="vertical-align:middle;padding:0">
+                        <label for="inpSmoker" style="margin:0" class="lbl-gray4-small">Tabagista</label>
+                    </div>
+                    <div class="col-xs-3 text-center" style="vertical-align:middle">
+                        <input type="checkbox" asp-for="inpSmoker" class="form-control" style="margin:0" autocomplete="off" placeholder="Tabagista">
+                    </div>
+                    <div class="col-xs-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpHobbies" class="lbl-gray4-small">Hobbies</label>
+                <textarea rows="4" type="text" asp-for="inpHobbies" class="form-control" autocomplete="off" placeholder="Hobbies"></textarea>
+                @*<span asp-validation-for="inpCarteirinhaNumber" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpTreatmentPlan" class="lbl-gray4-small">Plano de tratamento</label>
+                <textarea rows="4" type="text" asp-for="inpTreatmentPlan" class="form-control" autocomplete="off" placeholder="Plano de tratamento"></textarea>
+                @*<span asp-validation-for="inpCarteirinhaNumber" class="text-danger"></span>*@
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label class="lbl-gray4-small">Tipo de tratamento</label>
+                <select class="form-control" asp-for="slcTypesTreatment" asp-items="Model.lstTypesTreatment">
+                    <option value="" selected disabled>Selecione um tipo de tratamento</option>
+                </select>
+                <span asp-validation-for="slcTypesTreatment" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label class="lbl-gray4-small">EVA</label>
+                <select class="form-control" asp-for="slcEVA">
+                    <option value="" selected disabled>Selecione um EVA</option>
+                    @{
+                        for (int i = 0; i <= 10; i++)
+                        {
+                            <option value=@i.ToString()>@i</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="slcEVA" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpComplementaryExams" class="lbl-gray4-small">Exames complementares</label>
+                <textarea rows="4" type="text" asp-for="inpComplementaryExams" class="form-control" autocomplete="off" placeholder="Exames complementares"></textarea>
+                @*<span asp-validation-for="inpCarteirinhaNumber" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label for="inpMainComplaint" class="lbl-gray4-small">Queixa principal</label>
+                <textarea rows="4" type="text" asp-for="inpMainComplaint" class="form-control carteirinhaNumber" autocomplete="off" placeholder="Queixa principal"></textarea>
+                @*<span asp-validation-for="inpCarteirinhaNumber" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:20px;">
+            <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <div class="row is-table-row">
+                    <div class="col-xs-8 text-center" style="vertical-align:middle">
+                        @*<button asp-page-handler="BackPage" class="label-back">Voltar</button>*@
+                    </div>
+                    <div class="col-xs-4" style="padding-left:0px;padding-right:0px">
+                        <button class="btn btn-default-1 btn-block">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript">$(document).ready(function () {
+
+
+        $('.mixed').mask('00/00/0000');
+        $('.cpf').mask('000.000.000-00', { reverse: true });
+
+        $('.phone').mask('(AA) AAAAAAAAAAAAAAA', {
+            'translation': {
+                A: { pattern: /[0-9]/ }
+            }
+        });
+
+        $('.onlyNumbers').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {
+            'translation': {
+                A: { pattern: /[0-9]/ }
+            }
+        });
+
+    });</script>
+}
+

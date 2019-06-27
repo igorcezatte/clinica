@@ -7,38 +7,39 @@
 
     <div class="row" style="vertical-align:bottom">
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 text-left">
-            @{
-                if (Model.objCustomer == null)
-                {<h3>Cliente</h3> }
-                else
-                {<h3>@Model.truncateCustomerName()</h3>}
-            }
-
+            <h3>Avaliacoes</h3>
         </div>
         <div class="col-lg-2 col-lg-offset-7 col-md-3 col-md-offset-7 col-sm-2 col-sm-offset-6 col-xs-4 col-xs-offset-2">
-            <a asp-page="redirectPage" asp-route-id="2" class="btn btn-default-1 btn-block">Nova avaliacao</a>
+            <a asp-page="redirectPage" asp-route-id="3" asp-route-cdCliente="@Model.objCustomer.id" class="btn btn-default-1 btn-block">Nova avaliacao</a>
         </div>
     </div>
 
     <hr style="margin-top: 3px" />
 
-    @*<form method="post">
-            <div class="row">
-                <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
-                    <input autocomplete="off" type="text" asp-for="inpSearch" class="form-control" placeholder="Nome / CPF" />
-                </div>
-                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
-                    <div class="row">
-                        <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-10">
-                            <button class="btn btn-default-1 btn-block">Procurar</button>
-                        </div>
-                    </div>
-                </div>
+    <ol class="breadcrumb" style="margin-top: 0px;margin-bottom: 0px;">
+        <li>Cliente</li>
+        <li class="active">Avaliacoes</li>
+        <li>Guias</li>
+    </ol>
 
+    @{
+        if (Model.objCustomer != null && Model.objCustomer.id != 0)
+        {
+            <div style="padding: 20px 0;">
+                <div>
+                    Cliente: @Model.objCustomer.nome
+                </div>
+                <div style="padding: 10px 0;">
+                    Plano de saude: @Model.objCustomer.planoSaude
+                </div>
+                <div>
+                    CPF:  @Model.objCustomer.cpf
+                </div>
             </div>
-        </form>*@
+        }
+    }
 
-    <br />
+
     @{
         if (Model.objErro != null && Model.objErro.erro && string.IsNullOrEmpty(Model.objErro.strErroAmigavel))
         {

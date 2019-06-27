@@ -61,7 +61,7 @@ namespace clinica.Models
         {
             classTreatmentTypes objTreatment= new classTreatmentTypes();
             objTreatment.codigo = Convert.ToInt32(((DataRow)obj).ItemArray.GetValue(0).ToString());
-            objTreatment.descricao = (((DataRow)obj).ItemArray.GetValue(3).ToString());
+            objTreatment.descricao = (((DataRow)obj).ItemArray.GetValue(1).ToString());
 
             return objTreatment;
         }

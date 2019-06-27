@@ -91,3 +91,121 @@ GO
 COMMIT
 
 
+BEGIN TRANSACTION
+GO
+ALTER TABLE tblclientes ADD midias varchar(100)
+GO
+ALTER TABLE tblclientes ADD endereco varchar(70) NOT NULL
+GO
+ALTER TABLE tblclientes ADD profissao varchar(50) NOT NULL
+GO
+ALTER TABLE tblclientes ADD numeroCarteirinha varchar(30) NOT NULL
+COMMIT
+
+
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.tblAvaliacoes
+    (
+    id int NOT NULL IDENTITY (1, 1),
+    cd_cliente int NOT NULL,
+    dataInicio datetime NOT NULL,
+    diagnosticoMedico varchar(MAX) NULL,
+    nomeMedico varchar(30) NULL,
+    CRMmedico varchar(30) NULL,
+    anamnese varchar(MAX) NULL,
+    medicamentos varchar(MAX) NULL,
+    doencasAssociadas varchar(MAX) NULL,
+    etilista bit NULL,
+    tabagista bit NULL,
+    hobbies varchar(MAX) NULL,
+    planoTratamento varchar(MAX) NULL,
+    cd_tipoTratamento int NULL,
+    EVA smallint NULL,
+    examesComplementares varchar(MAX) NULL,
+    queixaPrincipal varchar(MAX) NULL,
+    fechada bit NULL
+    )  ON [PRIMARY]
+     TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE dbo.tblAvaliacoes ADD CONSTRAINT
+    PK_tblAvaliacoes PRIMARY KEY CLUSTERED 
+    (
+    id
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.tblAvaliacoes SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.tblTipoTratamento
+    (
+    codigo int NOT NULL,
+    descricao varchar(50) NOT NULL
+    )  ON [PRIMARY]
+GO
+ALTER TABLE dbo.tblTipoTratamento ADD CONSTRAINT
+    PK_tblTipoTratamento PRIMARY KEY CLUSTERED 
+    (
+    codigo
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.tblTipoTratamento SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.tblTipoTratamento
+    DROP CONSTRAINT PK_tblTipoTratamento
+GO
+ALTER TABLE dbo.tblTipoTratamento ADD CONSTRAINT
+    PK_tblTipoTratamento PRIMARY KEY CLUSTERED 
+    (
+    codigo
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.tblTipoTratamento SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.tblClientes SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.tblAvaliacoes ADD CONSTRAINT
+    FK_tblAvaliacoes_tblTipoTratamento FOREIGN KEY
+    (
+    cd_tipoTratamento
+    ) REFERENCES dbo.tblTipoTratamento
+    (
+    codigo
+    ) ON UPDATE  NO ACTION 
+     ON DELETE  NO ACTION 
+    
+GO
+ALTER TABLE dbo.tblAvaliacoes ADD CONSTRAINT
+    FK_tblAvaliacoes_tblClientes FOREIGN KEY
+    (
+    cd_cliente
+    ) REFERENCES dbo.tblClientes
+    (
+    id
+    ) ON UPDATE  NO ACTION 
+     ON DELETE  NO ACTION 
+    
+GO
+ALTER TABLE dbo.tblAvaliacoes SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+insert into tblTipoTratamento(codigo, descricao) values (1, 'Fisioterapia')
+insert into tblTipoTratamento(codigo, descricao) values (2, 'Pilates')

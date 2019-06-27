@@ -189,7 +189,7 @@ namespace clinica.Pages
         private void fillForms(classClientes objCliente)
         {
             strTitulo = objCliente.id == 0 ? strTitulo : "Alterar dados";
-            selectedPlanoSaude = objCliente.cd_planoSaude;
+            slcPlanoSaude = objCliente.cd_planoSaude;
             inpID = objCliente.id.ToString();
             inpName = objCliente.nome;
             inpName = objCliente.nome;
@@ -211,7 +211,7 @@ namespace clinica.Pages
             objCliente.nome = inpName;
             objCliente.cpf = inpCPF;
             //fazer isso
-            objCliente.cd_planoSaude = selectedPlanoSaude;
+            objCliente.cd_planoSaude = slcPlanoSaude;
             objCliente.telefone = inpTelephone;
             objCliente.endereco = inpAdress;
             objCliente.midias = inpMidias;
