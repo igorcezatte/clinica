@@ -53,13 +53,13 @@
             </div>
         }
 
-        else if (TempData["alterSaveCustomerOK"] != null)
+        else if (TempData["alterSaveEvaluationOK"] != null)
         {
             <div class="row">
                 <div>
                     <div class="alert alert-success alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>OK!</strong> @TempData["alterSaveCustomerOK"].ToString()
+                        <strong>OK!</strong> @TempData["alterSaveEvaluationOK"].ToString()
                     </div>
                 </div>
             </div>
@@ -124,13 +124,13 @@
                                                 <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.endereco</td>
                                                 <td class="text-center " style="vertical-align:middle;white-space:nowrap;">@obj.midias</td>*@
                                             <td class="text-center">
-                                                <button asp-page-handler="Edit" asp-route-id="@obj.id" class="btn btn-edit btn-sm">Editar</button>
+                                                <button asp-page-handler="Edit" asp-route-cdEvaluation="@obj.id" asp-route-cdCustomer="@Model.objCustomer.id" class="btn btn-edit btn-sm">Editar</button>
                                             </td>
                                             <td class="text-center">
-                                                <button class="btn btn-default-2 btn-sm">Avaliacoes</button>
+                                                <button class="btn btn-default-2 btn-sm">Guias</button>
                                             </td>
                                             <td class="text-center">
-                                                <button asp-page-handler="Delete" asp-route-id="@obj.id" class="btn btn-delete btn-sm">Deletar</button>
+                                                <button asp-page-handler="Delete" asp-route-cdEvaluation="@obj.id" asp-route-cdCustomer="@Model.objCustomer.id" class="btn btn-delete btn-sm">Deletar</button>
                                             </td>
                                         </tr>
                                     }

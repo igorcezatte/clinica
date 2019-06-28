@@ -133,10 +133,13 @@ namespace clinica.Pages
                 if (objCustomer.getCustomerByID(ref objCustomerTemp, cd_cliente))
                 {
                     this.objCustomer = objCustomerTemp;
+                    
 
                     string valueObjEvaluation = string.Empty;
+                    string valueCdEvaluation = string.Empty;
 
                     ObjValidation.getQueryParam("objEvaluation", ref valueObjEvaluation);
+                    ObjValidation.getQueryParam("cdEvaluation", ref valueCdEvaluation);
 
                     if (!string.IsNullOrEmpty(valueObjEvaluation))
                     {
@@ -145,6 +148,25 @@ namespace clinica.Pages
                         if (objEvaluation.insertAlter())
                         {
                             redirect = true;
+
+                            if (objEvaluation.id == 0)
+                                TempData["alterSaveEvaluationOK"] = "Avaliacao salva com sucesso!";
+                            else
+                                TempData["alterSaveEvaluationOK"] = "Avaliacao alterada com sucesso!";
+                        }
+                        else
+                        {
+                            objErro = objEvaluation.objErro;
+                        }
+                    }
+                    else if (string.IsNullOrEmpty(valueObjEvaluation) && !string.IsNullOrEmpty(valueCdEvaluation))
+                    {
+                        classEvaluation objEvaluation = new classEvaluation();
+                        classEvaluation objEvaluationTemp = new classEvaluation();
+
+                        if (objEvaluation.getById(ref objEvaluationTemp, Convert.ToInt32(valueCdEvaluation)))
+                        {
+                            fillforms(objEvaluationTemp);
                         }
                         else
                         {
@@ -161,6 +183,26 @@ namespace clinica.Pages
             {
                 objErro = objTypes.objErro;
             }
+        }
+
+        private void fillforms(classEvaluation objEvaluationTemp)
+        {
+            inpID = objEvaluationTemp.id.ToString();
+            inpCdCliente = objEvaluationTemp.cd_cliente.ToString();
+            inpMedicDiagnosis = objEvaluationTemp.diagnosticoMedico.ToString();
+            inpMedicName = objEvaluationTemp.nomeMedico.ToString();
+            inpMedicCRM  = objEvaluationTemp.CRMmedico.ToString();
+            inpAnamnesis = objEvaluationTemp.anamnese.ToString();
+            inpMedicines = objEvaluationTemp.medicamentos.ToString();
+            inpAlcoholist = objEvaluationTemp.etilista;
+            inpSmoker = objEvaluationTemp.tabagista;
+            inpHobbies = objEvaluationTemp.hobbies.ToString();
+            inpAssociatedDiseases = objEvaluationTemp.doencasAssociadas.ToString();
+            inpTreatmentPlan = objEvaluationTemp.planoTratamento.ToString();
+            slcTypesTreatment = Convert.ToInt32( objEvaluationTemp.cd_tipoTratamento.ToString());
+            slcEVA = objEvaluationTemp.EVA.ToString();
+            inpComplementaryExams = objEvaluationTemp.examesComplementares.ToString();
+            inpMainComplaint = objEvaluationTemp.QueixaPrincipal.ToString();
         }
 
         public IActionResult OnPost()

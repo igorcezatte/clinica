@@ -17,6 +17,8 @@ namespace clinica.Pages
         #region properties
         public classErro objErro { get; set; }
         public List<classEvaluation> lstEvaluation { get; set; }
+
+        [BindProperty]
         public classClientes objCustomer { get; set; }
         #endregion
 
@@ -43,14 +45,14 @@ namespace clinica.Pages
                         {
                             classValidationQueryString objValidationReturn = new classValidationQueryString();
                             objValidationReturn.objUsuario = HttpContext.Session.GetObjectFromJson<classUsuario>("user");
-                            objValidationReturn.insertQueryParam("inpSearch", TempData["inpSearch"].ToString());
+                            objValidationReturn.insertQueryParam("customerID", TempData["cdCliente"].ToString());
 
-                            TempData["alterSaveCustomerOK"] = "Cliente deletado com sucesso";
+                            TempData["alterSaveEvaluationOK"] = "Avaliacao deletada com sucesso!";
 
                             var strObjValidationReturn = JsonConvert.SerializeObject(objValidationReturn);
                             var strObjValidationReturnEncrypt = classModulo.Encrypt(strObjValidationReturn);
 
-                            return RedirectToPage("customerPage", new { strParams = strObjValidationReturnEncrypt });
+                            return RedirectToPage("customerEvaluationPage", new { strParams = strObjValidationReturnEncrypt });
                         }
 
                         return Page();
@@ -83,71 +85,117 @@ namespace clinica.Pages
             {
                 //string valueInput = string.Empty;
                 string strCustomerID = string.Empty;
+                string strEvaluation = string.Empty;
 
                 objValidation.getQueryParam("customerID", ref strCustomerID);
+                objValidation.getQueryParam("cdEvaluation", ref strEvaluation);
 
-                if (!string.IsNullOrEmpty(strCustomerID))
+                classClientes objCliente = new classClientes();
+                classClientes objClienteTemp = new classClientes();
+
+                if (objCliente.getCustomerByID(ref objClienteTemp, Convert.ToInt32(strCustomerID)))
                 {
-                    classClientes objCliente = new classClientes();
-                    classClientes objClienteTemp = new classClientes();
+                    this.objCustomer = objClienteTemp;
 
-                    if (objCliente.getCustomerByID(ref objClienteTemp, Convert.ToInt32( strCustomerID)))
+                    if (!string.IsNullOrEmpty(strCustomerID) && string.IsNullOrEmpty(strEvaluation))
                     {
-                        this.objCustomer = objClienteTemp;
+                        listEvaluations();
+                    }
+                    else if (!string.IsNullOrEmpty(strEvaluation))
+                    {
+                        classEvaluation objEvaluation = new classEvaluation();
+                        objEvaluation.id = Convert.ToInt32(strEvaluation);
 
-                        List<classEvaluation> lstEvaluationTemp = new List<classEvaluation>();
-                        classEvaluation objvaluation = new classEvaluation();
-
-                        if (objvaluation.listEvaluationByCliente(ref lstEvaluationTemp, objCustomer.id))
+                        if (objEvaluation.deleteByID())
                         {
-                            if (lstEvaluationTemp.Count == 0)
-                            {
-                                objvaluation.objErro.erro = true;
-                                objvaluation.objErro.strErroAmigavel = "Nenhuma avaliacao encontrada para o cliente: " + objCustomer.nome.Trim();
-                                objErro = objvaluation.objErro;
-                            }
-                            else
-                            {
-                                lstEvaluation = lstEvaluationTemp;
-                            }
+                            redirect = true;
                         }
                         else
                         {
-                            objErro = objvaluation.objErro;
+                            objErro = objEvaluation.objErro;
+                            listEvaluations();
                         }
                     }
                     else
                     {
-                        objErro = objCliente.objErro;
+                        objErro.erro = true;
+                        objErro.strErro = "Erro ao receber parametros";
                     }
                 }
                 else
                 {
-                    objErro.erro = true;
-                    objErro.strErro = "Erro ao receber parametros";
+                    objErro = objCliente.objErro;
                 }
-
-                //else if (string.IsNullOrEmpty(valueInput) && !string.IsNullOrEmpty(valueID))
-                //{
-                //    classClientes objCliente = new classClientes();
-                //    objCliente.id = Convert.ToInt32(valueID);
-
-                //    if (objCliente.deleteCustomerByID())
-                //    {
-                //        redirect = true;
-                //    }
-                //    else
-                //    {
-                //        objErro = objCliente.objErro;
-                //    }
-
-                //}
             }
             else
             {
                 objErro.erro = true;
                 objErro.strErro = "Erro ao receber parametros";
             }
+        }
+
+        private void OnPost()
+        {
+
+        }
+
+        private void listEvaluations()
+        {
+            List<classEvaluation> lstEvaluationTemp = new List<classEvaluation>();
+            classEvaluation objvaluation = new classEvaluation();
+
+            if (objvaluation.listEvaluationByCliente(ref lstEvaluationTemp, objCustomer.id))
+            {
+                if (lstEvaluationTemp.Count == 0)
+                {
+                    objErro.erro = true;
+                    objvaluation.objErro.strErroAmigavel = "Nenhuma avaliacao encontrada para o cliente: " + objCustomer.nome.Trim();
+                    objErro.strErroAmigavel = objErro.strErroAmigavel + (string.IsNullOrEmpty(objErro.strErroAmigavel) ? string.Empty : "; ") + objvaluation.objErro.strErroAmigavel; 
+                }
+                else
+                {
+                   lstEvaluation = lstEvaluationTemp;
+                }
+            }
+            else
+            {
+                objErro.erro = true;
+                objErro.strErro = objErro.strErro + (string.IsNullOrEmpty(objErro.strErro) ? string.Empty : "; ") + objvaluation.objErro.strErro;
+            }
+        }
+
+        public IActionResult OnPostEdit(int cdCustomer, int cdEvaluation)
+        {
+            classValidationQueryString objValidation = new classValidationQueryString();
+
+            objValidation.objUsuario = HttpContext.Session.GetObjectFromJson<classUsuario>("user");
+
+            TempData["cdCliente"] = cdCustomer;
+
+            objValidation.insertQueryParam("cdEvaluation", cdEvaluation.ToString());
+
+            var strObjValidation = JsonConvert.SerializeObject(objValidation);
+
+            var strObjValidationEncrypt = classModulo.Encrypt(strObjValidation);
+
+            return RedirectToPage("newCustomerEvaluationPage", new { strParams = strObjValidationEncrypt });
+        }
+
+        public IActionResult OnPostDelete(int cdCustomer, int cdEvaluation)
+        {
+            classValidationQueryString objValidation = new classValidationQueryString();
+
+            objValidation.objUsuario = HttpContext.Session.GetObjectFromJson<classUsuario>("user");
+
+            TempData["cdCliente"] = cdCustomer;
+            objValidation.insertQueryParam("cdEvaluation", cdEvaluation.ToString());
+            objValidation.insertQueryParam("customerID", cdCustomer.ToString());
+
+            var strObjValidation = JsonConvert.SerializeObject(objValidation);
+
+            var strObjValidationEncrypt = classModulo.Encrypt(strObjValidation);
+
+            return RedirectToPage("customerEvaluationPage", new { strParams = strObjValidationEncrypt });
         }
     }
 }
