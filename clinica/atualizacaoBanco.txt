@@ -1,4 +1,4 @@
--- -------------------------------------------- versao 1.00 ----------------------------------------------------
+﻿-- -------------------------------------------- versao 1.00 ----------------------------------------------------
 CREATE TABLE dbo.tblPlanoSaude
     (
     codigo int NOT NULL,
@@ -210,14 +210,3 @@ COMMIT
 insert into tblTipoTratamento(codigo, descricao) values (1, 'Fisioterapia')
 insert into tblTipoTratamento(codigo, descricao) values (2, 'Pilates')
 
-ei gato
-
-ola mundo
-
-ola talles
-
-<<<<<<< HEAD
-soksakoaksoaoskkoaskoasokas
-=======
-12345678
->>>>>>> 736a6e30282ed9fa93afda661f58346d2c87ab1a
