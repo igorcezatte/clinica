@@ -209,3 +209,6 @@ COMMIT
 
 insert into tblTipoTratamento(codigo, descricao) values (1, 'Fisioterapia')
 insert into tblTipoTratamento(codigo, descricao) values (2, 'Pilates')
+
+
+
